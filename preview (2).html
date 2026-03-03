@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angry Bird Auto Service</title>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
+  })();
+</script>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #c40000, #ff4d4d);
+    color: white;
+    text-align: center;
+}
+header { padding: 20px; }
+h1 { font-size: 40px; margin: 10px 0; }
+.flyer img { width: 90%; max-width: 600px; border-radius: 15px; margin: 20px 0; }
+.section { background: white; color: black; margin: 20px; padding: 20px; border-radius: 15px; text-align: left; }
+button { background: #c40000; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
+button:hover { background: black; }
+input, select { padding: 10px; margin: 5px 0; width: 95%; font-size: 16px; }
+footer { padding: 20px; background: #900000; }
+.sticky-book { 
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: #ff0000;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.sticky-book:hover {
+    background: black;
+}
+@media(max-width:600px){
+    h1 { font-size: 30px; }
+    button { font-size: 14px; padding: 10px 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🔴🐦 Angry Bird Auto Service 🐦🔴</h1>
+<p>Fast • Affordable • Reliable</p>
+</header>
+
+<div class="flyer">
+<img src="a_flyer_for_angry_bird_auto_service_is_designed.png" alt="Angry Bird Auto Service Flyer">
+</div>
+
+<div class="section">
+<h2>🚗 Services & Prices</h2>
+<ul>
+<li><strong>Basic Wash - $15</strong> (20 mins)  
+• Full exterior rinse  
+• Hand wash with car soap  
+• Rinse & dry</li>
+<li><strong>Wash + Tires - $20</strong> (30 mins)  
+• Exterior wash  
+• Tire scrub  
+• Rim cleaning</li>
+<li><strong>Full Inside & Outside - $30</strong> (45 mins)  
+• Full exterior wash  
+• Tire cleaning  
+• Vacuum seats & floors  
+• Wipe dashboard & console  
+• Clean inside & outside windows</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🕒 Hours</h2>
+<p><strong>During School:</strong> Mon–Fri 4:00 PM – 7:00 PM</p>
+<p><strong>Weekends:</strong> Saturday 9:00 AM – 5:00 PM | Sunday 1:00 PM – 5:00 PM</p>
+<p><strong>Summer Break:</strong> Mon–Fri 10:00 AM – 4:00 PM</p>
+</div>
+
+<div class="section">
+<h2>📅 Book a Wash</h2>
+
+<form id="bookingForm" onsubmit="return sendEmail(event)">
+<input type="text" id="name" placeholder="Your Name" required><br>
+<input type="text" id="car" placeholder="Car Type" required><br>
+
+<select id="service" required>
+<option value="">Select Service</option>
+<option value="Basic Wash - $15">Basic Wash - $15</option>
+<option value="Wash + Tires - $20">Wash + Tires - $20</option>
+<option value="Full Inside & Outside - $30">Full Inside & Outside - $30</option>
+</select><br>
+
+<select id="payment" required>
+<option value="">Payment Method</option>
+<option>Cash</option>
+<option>Cash App</option>
+<option>Apple Pay</option>
+<option>Zelle</option>
+</select><br>
+
+<input type="date" id="date" required><br>
+<input type="time" id="time" required><br><br>
+
+<button type="submit">Book Now</button>
+</form>
+
+<p id="confirmation"></p>
+</div>
+
+<footer>
+<p>📍 Serving Local Fayetteville, NC</p>
+<p>📱 Call or Text: YOUR NUMBER HERE</p>
+</footer>
+
+<div class="sticky-book" onclick="document.getElementById('bookingForm').scrollIntoView({behavior:'smooth'});">
+💥 Book Now 💥
+</div>
+
+<script>
+function sendEmail(e){
+    e.preventDefault();
+    var templateParams = {
+        user_name: document.getElementById("name").value,
+        car_type: document.getElementById("car").value,
+        service: document.getElementById("service").value,
+        payment: document.getElementById("payment").value,
+        date: document.getElementById("date").value,
+        time: document.getElementById("time").value
+    };
+
+    emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID', templateParams)
+    .then(function(response){
+        document.getElementById("confirmation").innerHTML = "✅ Booking request sent! Check your email soon.";
+        document.getElementById("bookingForm").reset();
+    }, function(error){
+        document.getElementById("confirmation").innerHTML = "❌ Something went wrong. Try again.";
+    });
+}
+</script>
+
+</body>
+</html>
